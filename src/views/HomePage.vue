@@ -9,13 +9,15 @@
     <ion-content :fullscreen="true">
       <div class="number-display">{{ count }}</div>
       <button class="count-button" @click="incrementCount">count</button>
-      <button class="settings-button" @click="goToSettings">Settings</button>
+      <button class="settings-button" @click="goToSettings">
+        <ion-icon name="cog"></ion-icon>
+      </button>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon } from '@ionic/vue';
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
