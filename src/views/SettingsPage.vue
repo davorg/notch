@@ -22,13 +22,21 @@
 
 <script setup lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const count = ref(0);
 const router = useRouter();
+const route = useRoute();
 
 onMounted(() => {
+  const storedCount = localStorage.getItem('count');
+  if (storedCount !== null) {
+    count.value = parseInt(storedCount, 10);
+  }
+});
+
+watch(route, () => {
   const storedCount = localStorage.getItem('count');
   if (storedCount !== null) {
     count.value = parseInt(storedCount, 10);
