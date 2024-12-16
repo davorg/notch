@@ -29,6 +29,15 @@ describe('Home Page Tests', () => {
       expect(win.localStorage.getItem('count')).to.equal('1')
     })
   })
+
+  it('Checks if the count refreshes correctly when navigating from the home page to the settings page', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/')
+    cy.get('.number-display').should('contain', '5')
+    cy.get('.settings-button').click()
+    cy.url().should('include', '/settings')
+    cy.get('.count-display').should('contain', '5')
+  })
 })
 
 describe('Settings Page Tests', () => {
@@ -80,5 +89,14 @@ describe('Settings Page Tests', () => {
     cy.window().then((win) => {
       expect(win.localStorage.getItem('count')).to.equal('5')
     })
+  })
+
+  it('Checks if the count refreshes correctly when navigating from the settings page to the home page', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.count-display').should('contain', '5')
+    cy.get('.cancel-button').click()
+    cy.url().should('include', '/home')
+    cy.get('.number-display').should('contain', '5')
   })
 })
