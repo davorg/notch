@@ -7,11 +7,13 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <div class="number-display">{{ count }}</div>
-      <button class="count-button" @click="incrementCount">count</button>
-      <button class="settings-button" @click="goToSettings">
-        <ion-icon :icon="settings"></ion-icon>
-      </button>
+      <div class="button-container">
+        <div class="number-display">{{ count }}</div>
+        <button class="count-button" @click="incrementCount">count</button>
+        <button class="settings-button" @click="goToSettings">
+          <ion-icon :icon="settings"></ion-icon>
+        </button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -58,16 +60,22 @@ function goToSettings() {
 }
 
 .count-button {
-  display: block;
-  margin: 20px auto;
+  display: inline-block;
+  margin: 20px;
   padding: 10px 20px;
   font-size: 24px;
 }
 
 .settings-button {
-  display: block;
-  margin: 20px auto;
+  display: inline-block;
+  margin: 20px;
   padding: 10px 20px;
   font-size: 24px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
