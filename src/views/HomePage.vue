@@ -9,6 +9,7 @@
     <ion-content :fullscreen="true">
       <div class="number-display">{{ count }}</div>
       <button class="count-button" @click="incrementCount">count</button>
+      <button class="settings-button" @click="goToSettings">Settings</button>
     </ion-content>
   </ion-page>
 </template>
@@ -16,11 +17,17 @@
 <script setup lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const count = ref(0);
+const router = useRouter();
 
 function incrementCount() {
   count.value++;
+}
+
+function goToSettings() {
+  router.push('/settings');
 }
 </script>
 
@@ -32,6 +39,13 @@ function incrementCount() {
 }
 
 .count-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 24px;
+}
+
+.settings-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
