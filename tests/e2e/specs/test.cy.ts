@@ -30,3 +30,55 @@ describe('Home Page Tests', () => {
     })
   })
 })
+
+describe('Settings Page Tests', () => {
+  it('Checks if the count is displayed on the settings page', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.count-display').should('contain', '5')
+  })
+
+  it('Checks if the "Reset" button updates the displayed count without changing the stored value', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.reset-button').click()
+    cy.get('.count-display').should('contain', '0')
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('count')).to.equal('5')
+    })
+  })
+
+  it('Checks if the "Decrement" button updates the displayed count without changing the stored value', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.decrement-button').click()
+    cy.get('.count-display').should('contain', '4')
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('count')).to.equal('5')
+    })
+  })
+
+  it('Checks if the "Save" button sets the stored value to the displayed count and navigates to the home page', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.decrement-button').click()
+    cy.get('.count-display').should('contain', '4')
+    cy.get('.save-button').click()
+    cy.url().should('include', '/home')
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('count')).to.equal('4')
+    })
+  })
+
+  it('Checks if the "Cancel" button navigates to the home page without saving any changes', () => {
+    localStorage.setItem('count', '5');
+    cy.visit('/settings')
+    cy.get('.decrement-button').click()
+    cy.get('.count-display').should('contain', '4')
+    cy.get('.cancel-button').click()
+    cy.url().should('include', '/home')
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('count')).to.equal('5')
+    })
+  })
+})
