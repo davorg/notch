@@ -1,7 +1,7 @@
 describe('Home Page Tests', () => {
-  it('Checks for the presence of the number-display element containing the number 0', () => {
+  it('Checks for the presence of the tally-canvas element', () => {
     cy.visit('/')
-    cy.get('.number-display').should('contain', '0')
+    cy.get('.tally-canvas').should('exist')
   })
 
   it('Checks for the presence of the count-button element', () => {
@@ -9,22 +9,40 @@ describe('Home Page Tests', () => {
     cy.get('.count-button').should('exist')
   })
 
-  it('Clicks the count-button and checks if the number-display element updates to 1', () => {
+  it('Clicks the count-button and checks if the tally marks update', () => {
     cy.visit('/')
     cy.get('.count-button').click()
-    cy.get('.number-display').should('contain', '1')
+    cy.get('.tally-canvas').then(($canvas) => {
+      const canvas = $canvas[0] as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
+      expect(imageData).to.not.be.null;
+      expect(imageData?.data.some((pixel) => pixel !== 0)).to.be.true;
+    });
   })
 
   it('Checks if the stored count value is displayed on page load', () => {
     localStorage.setItem('count', '5');
     cy.visit('/')
-    cy.get('.number-display').should('contain', '5')
+    cy.get('.tally-canvas').then(($canvas) => {
+      const canvas = $canvas[0] as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
+      expect(imageData).to.not.be.null;
+      expect(imageData?.data.some((pixel) => pixel !== 0)).to.be.true;
+    });
   })
 
   it('Checks if the new count value is stored in local storage after button click', () => {
     cy.visit('/')
     cy.get('.count-button').click()
-    cy.get('.number-display').should('contain', '1')
+    cy.get('.tally-canvas').then(($canvas) => {
+      const canvas = $canvas[0] as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
+      expect(imageData).to.not.be.null;
+      expect(imageData?.data.some((pixel) => pixel !== 0)).to.be.true;
+    });
     cy.window().then((win) => {
       expect(win.localStorage.getItem('count')).to.equal('1')
     })
@@ -33,7 +51,13 @@ describe('Home Page Tests', () => {
   it('Checks if the count refreshes correctly when navigating from the home page to the settings page', () => {
     localStorage.setItem('count', '5');
     cy.visit('/')
-    cy.get('.number-display').should('contain', '5')
+    cy.get('.tally-canvas').then(($canvas) => {
+      const canvas = $canvas[0] as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
+      expect(imageData).to.not.be.null;
+      expect(imageData?.data.some((pixel) => pixel !== 0)).to.be.true;
+    });
     cy.get('.settings-button').click()
     cy.url().should('include', '/settings')
     cy.get('.count-display').should('contain', '5')
@@ -97,6 +121,12 @@ describe('Settings Page Tests', () => {
     cy.get('.count-display').should('contain', '5')
     cy.get('.cancel-button').click()
     cy.url().should('include', '/home')
-    cy.get('.number-display').should('contain', '5')
+    cy.get('.tally-canvas').then(($canvas) => {
+      const canvas = $canvas[0] as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
+      expect(imageData).to.not.be.null;
+      expect(imageData?.data.some((pixel) => pixel !== 0)).to.be.true;
+    });
   })
 })
