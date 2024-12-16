@@ -10,6 +10,7 @@
       <div class="settings-container">
         <h2>Settings Page</h2>
         <p>Here you can configure your settings.</p>
+        <div class="count-display">{{ count }}</div>
         <button class="reset-button" @click="resetCounter">Reset</button>
         <button class="decrement-button" @click="decrementCounter">-</button>
         <button class="save-button" @click="saveChanges">Save</button>
@@ -21,23 +22,31 @@
 
 <script setup lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
+const count = ref(0);
 const router = useRouter();
 
+onMounted(() => {
+  const storedCount = localStorage.getItem('count');
+  if (storedCount !== null) {
+    count.value = parseInt(storedCount, 10);
+  }
+});
+
 function resetCounter() {
-  localStorage.setItem('count', '0');
+  count.value = 0;
 }
 
 function decrementCounter() {
-  const storedCount = localStorage.getItem('count');
-  if (storedCount !== null) {
-    const count = parseInt(storedCount, 10);
-    localStorage.setItem('count', (count - 1).toString());
+  if (count.value > 0) {
+    count.value--;
   }
 }
 
 function saveChanges() {
+  localStorage.setItem('count', count.value.toString());
   router.push('/home');
 }
 
@@ -59,6 +68,12 @@ function cancelChanges() {
 
 .settings-container p {
   font-size: 18px;
+}
+
+.count-display {
+  font-size: 48px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .reset-button,
