@@ -10,7 +10,7 @@
       <div class="number-display">{{ count }}</div>
       <button class="count-button" @click="incrementCount">count</button>
       <button class="settings-button" @click="goToSettings">
-        <ion-icon name="cog"></ion-icon>
+        <ion-icon :icon="cog"></ion-icon>
       </button>
     </ion-content>
   </ion-page>
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon } from '@ionic/vue';
+import { cog } from 'ionicons/icons';
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
