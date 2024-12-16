@@ -1,0 +1,30 @@
+# Node.js dependencies
+node_modules/
+
+# Capacitor generated files
+android/
+ios/
+
+# Output directories
+www/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+
+# Logs and temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
