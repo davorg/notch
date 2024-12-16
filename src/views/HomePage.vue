@@ -61,6 +61,11 @@ function goToSettings() {
 
 .button-container {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .count-button {
@@ -75,11 +80,5 @@ function goToSettings() {
   margin: 20px auto;
   padding: 10px 20px;
   font-size: 24px;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>
