@@ -8,8 +8,8 @@
 
     <ion-content :fullscreen="true">
       <div class="number-display">{{ count }}</div>
-      <button class="count-button" @click="incrementCount">count</button>
-      <button class="settings-button" @click="goToSettings">
+      <button @click="incrementCount">count</button>
+      <button @click="goToSettings">
         <ion-icon :icon="settings"></ion-icon>
       </button>
     </ion-content>
@@ -55,19 +55,5 @@ function goToSettings() {
   font-size: 48px;
   text-align: center;
   margin-top: 20%;
-}
-
-.count-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 24px;
-}
-
-.settings-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 24px;
 }
 </style>

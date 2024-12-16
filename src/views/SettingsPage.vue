@@ -11,10 +11,10 @@
         <h2>Settings Page</h2>
         <p>Here you can configure your settings.</p>
         <div class="count-display">{{ count }}</div>
-        <button class="reset-button" @click="resetCounter">Reset</button>
-        <button class="decrement-button" @click="decrementCounter">-</button>
-        <button class="save-button" @click="saveChanges">Save</button>
-        <button class="cancel-button" @click="cancelChanges">Cancel</button>
+        <button @click="resetCounter">Reset</button>
+        <button @click="decrementCounter">-</button>
+        <button @click="saveChanges">Save</button>
+        <button @click="cancelChanges">Cancel</button>
       </div>
     </ion-content>
   </ion-page>
@@ -84,10 +84,7 @@ function cancelChanges() {
   margin-top: 20px;
 }
 
-.reset-button,
-.decrement-button,
-.save-button,
-.cancel-button {
+button {
   display: block;
   margin: 10px auto;
   padding: 10px 20px;
