@@ -76,4 +76,10 @@ function goToSettings() {
   padding: 10px 20px;
   font-size: 24px;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
